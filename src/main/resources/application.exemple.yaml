@@ -2,6 +2,9 @@ server:
   port: PORT-OF-YOUR-APPLICATION
 
 spring:
+  profiles:
+    active: local
+    
   application:
     name: NAME-OF-APPLICATION
 

@@ -3,8 +3,8 @@ CREATE DATABASE auth_db;
 CREATE TABLE pays (
   id SERIAL PRIMARY KEY,
   nom VARCHAR(150) NOT NULL,
-  code_iso2 CHAR(2) UNIQUE NOT NULL,
-  code_iso3 CHAR(3) UNIQUE
+  code_iso2 VARCHAR(2) UNIQUE NOT NULL,
+  code_iso3 VARCHAR(3) UNIQUE
 );
 
 INSERT INTO pays (nom, code_iso2, code_iso3) VALUES
@@ -171,12 +171,11 @@ INSERT INTO pays (nom, code_iso2, code_iso3) VALUES
      ('Zambie','ZM','ZMB'),
      ('Zimbabwe','ZW','ZWE');
 
-
 CREATE TABLE utilisateurs (
     id SERIAL PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    role VARCHAR(20) NOT NULL, 
+    role VARCHAR(20) NOT NULL,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMPTZ DEFAULT now(),
     updated_at TIMESTAMPTZ DEFAULT now()
@@ -187,10 +186,12 @@ CREATE TABLE profils_candidat (
     nom VARCHAR(250),
     prenom VARCHAR(250),
     photo TEXT,
-    localisation TEXT,
     resume TEXT,
     annees_experience INT DEFAULT 0,
-    profil_completed BOOLEAN DEFAULT FALSE
+    profil_completed BOOLEAN DEFAULT FALSE,
+    pays_id INT REFERENCES pays(id),
+    ville VARCHAR(150),
+    adresse TEXT
 );
 
 CREATE TABLE telephones_candidat (
@@ -247,28 +248,8 @@ WHERE is_phone_principal = true;
 
 CREATE TABLE profils_admin (
     utilisateur_id INT PRIMARY KEY REFERENCES utilisateurs(id),
-    super_admin BOOLEAN DEFAULT FALSE
+    super_admin BOOLEAN DEFAULT FALSE,
+    nom VARCHAR(250),
+    prenom VARCHAR(250),
+    photo TEXT
 );
-
-ALTER TABLE profils_admin
-    ADD COLUMN nom VARCHAR(250);
-
-ALTER TABLE profils_admin
-    ADD COLUMN prenom VARCHAR(250);
-
-ALTER TABLE profils_admin
-    ADD COLUMN photo TEXT;
-
-ALTER TABLE profils_candidat
-    ADD COLUMN pays_id INT REFERENCES pays(id),
-    ADD COLUMN ville VARCHAR(150),
-    ADD COLUMN adresse TEXT;
-
-ALTER TABLE profils_candidat
-    DROP COLUMN localisation;
-
-ALTER TABLE pays
-    ALTER COLUMN code_iso2 TYPE VARCHAR(2);
-
-ALTER TABLE pays
-    ALTER COLUMN code_iso3 TYPE VARCHAR(3);
