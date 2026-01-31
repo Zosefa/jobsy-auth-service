@@ -1,0 +1,26 @@
+server:
+  port: PORT-OF-YOUR-APPLICATION
+
+spring:
+  application:
+    name: NAME-OF-APPLICATION
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: URL-OF-EUREKA-SERVER
+  instance:
+    prefer-ip-address: false
+    hostname: YOUR-HOST-WORKER
+
+jwt:
+  access-token-expiration: YOUR-ACCESS-TOKEN-DURATION
+  refresh-token-expiration: YOUR-REFRESH-TOKEN-DURATION
