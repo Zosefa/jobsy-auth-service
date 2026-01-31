@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/DB_NAME
+    username: DB_USERNAME
+    password: DB_PASSWORD
+    driver-class-name: org.postgresql.Driver
+
+jwt:
+  access-secret: ACCESS_JWT_SECRET
+  refresh-secret: REFRESH_JWT_SECRET

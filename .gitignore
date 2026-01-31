@@ -38,7 +38,7 @@ build/
 # ===== Environment / Secrets =====
 .env
 application-*.yaml
-!application.example.yaml
+!application.local.example.yaml
 
 # ===== Logs =====
 *.log
