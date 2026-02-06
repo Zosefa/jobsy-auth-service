@@ -25,6 +25,7 @@ public class ProfilsRecruteur {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "entreprise_id", nullable = false)
+    @JsonBackReference("entreprise-recruteurs")
     private Entreprise entreprise;
 
     private String photo;
